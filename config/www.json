@@ -1,5 +1,0 @@
-{
-	"port"      : 80,
-	"hostname"  : "neutrino.nodejitsu.com",
-	"protocol"  : "http://"
-}
