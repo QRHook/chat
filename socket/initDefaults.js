@@ -6,7 +6,7 @@ module.exports = Init;
 function Init (io, callback) {
     // Configure to only use websockets for development
     io.configure('development', function () {
-        io.set('transports', ['websockets']);
+        io.set('transports', ['websocket']);
     });
     // Set authorization to print out user agent for device detection
     // implementation

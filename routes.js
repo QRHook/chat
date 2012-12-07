@@ -5,5 +5,7 @@ var filed = require('filed'),
 
 exports.root = Root;
 function Root () {
-
+    filed('views/index.html')
+        .pipe(oppressor(this.req))
+        .pipe(this.res);
 }
