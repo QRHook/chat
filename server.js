@@ -1,3 +1,4 @@
+// Author: Jarrett Cruger -> QR Hook
 
 var flatiron = require('flatiron'),
     routes = require('./routes'),

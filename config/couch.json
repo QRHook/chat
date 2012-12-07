@@ -1,0 +1,11 @@
+{
+	"master": {
+		"uri": "https://jcrugzz:fuckingBullshit@qrhook.iriscouch.com",
+		"db": "chat",
+		"request_options": {
+			"strictSSL": true,
+			"pool.maxSockets": 200
+		}
+	},
+	"compact": 6000
+}

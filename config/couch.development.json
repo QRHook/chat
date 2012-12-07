@@ -1,0 +1,7 @@
+{
+	"master": {
+		"uri": "http://localhost:5984/",
+		"db": "chat"
+	},
+	"compact": 6000
+}
