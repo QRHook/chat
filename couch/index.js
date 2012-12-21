@@ -4,20 +4,19 @@
 var nano = require('nano'),
 	config = require('../config').couch;
 
+// Crete server object to initialize connection
+var server = nano({
+	'url': config.master.uri,
+	'request_options': config.master.request_options
+});
 
-	server = nano({
-		'url': config.master.uri,
-		'request_options': config.master.request_options
-	});
-
-// Config database and environment
-var	master = server.use(config.master.db),
-	env = process.env.NODE_ENV || 'development';
+// Config server for particular database database and environment
+var	master = server.use(config.master.db);
 
 // Nano object to interact with the the specific couchDB database
 exports.master = master;
 // Function to compact database with.
-couch.compact = master.compact;
+exports.compact = master.compact;
 
 // Create database if it isn't present on the couchDB futon
 exports.bootstrap = Bootstrap;

@@ -1,5 +1,5 @@
 var env = process.env.NODE_ENV || 'development',
-	config = exports;
+    config = exports;
 
 ['couch', 'www'].forEach(function (filename) {
   try {
