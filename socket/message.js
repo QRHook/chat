@@ -11,6 +11,8 @@ module.exports = message;
 function message(client, message, callback) {
 
     // Get data to be inserted in database
+    // How is data passed into this function?
+    // Attached to client object or other arguments
     function extractData() {
 
     }
