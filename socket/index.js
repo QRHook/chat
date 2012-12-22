@@ -17,7 +17,7 @@ function Start (server, callback) {
 // After initialized this is the callback that sets up all the listeners
 function Listen (io) {
     // Listen for connection
-    io.sockets.on('connectin', function (client) {
+    io.sockets.on('connection', function (client) {
 
     });
 }
