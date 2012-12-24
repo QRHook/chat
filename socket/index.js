@@ -2,6 +2,7 @@
 // Require socket related things.
 // I want to attempt to do this without socket.io but TBD
 var initDefaults = require('./initDefaults'),
+    message = require('./message'),
     socket = require('socket.io');
 
 exports.start = Start;
@@ -18,6 +19,17 @@ function Start (server, callback) {
 function Listen (io) {
     // Listen for connection
     io.sockets.on('connection', function (client) {
-
+        // Set name attribute of the client
+        client.on('attr:name', function (data, callback) {
+            if(data) {
+                client.set('name', data.name, callback);
+            }
+        });
+        // Initiate a chat by sending a message
+        client.on('message', function (data, callback) {
+            if(data) {
+                message(client, data, callback);
+            }
+        });
     });
 }
