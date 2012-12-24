@@ -8,7 +8,7 @@ var couch = require('../couch'),
 // API endpoint for this module
 module.exports = message;
 // Handle message Event
-function message(client, data, callback) {
+function message(client, data) {
     extractData(insert);
     // Get data to be inserted in database
     // How is data passed into this function?
@@ -16,18 +16,18 @@ function message(client, data, callback) {
     function extractData(cb) {
         var json = {};
         console.log(data.message);
+        // Add message and timestamp to message document to be stored
         json.message = data.message;
-        process.nextTick(function() {
-            client.get('name', name);
-            function name (err, name) {
-                if(!err && name) {
-                    json.from = name;
-                    cb(null, json);
-                } else {
-                    cb(err, null);
-                }
+        json.timestamp = data.timestamp;
+        client.get('name', name);
+        function name (err, name) {
+            if(!err && name) {
+                json.from = name;
+                cb(null, json);
+            } else {
+                cb(err, null);
             }
-        });
+        }
     }
     // Insert message into database
     function insert(err, json) {
@@ -37,13 +37,13 @@ function message(client, data, callback) {
         if(!err && json) {
             db.insert(json, function (err, body) {
                 if(!err && body) {
-                    callback(null, body);
+                    console.log(body);
                 } else {
-                    callback(err, null);
+                    console.log(err);
                 }
             });
         } else {
-            callback(err, null);
+            console.log(err);
         }
     }
 }

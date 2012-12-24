@@ -14,7 +14,9 @@ async.series([
         callback();
     },
     function sendMessage (callback) {
-        socket.emit('msg', {message: "test message for inserting in the database"}, hey);
+        var date = new Date();
+        console.log(date);
+        socket.emit('msg', {message: "test message for inserting in the database", timestamp:date}, hey);
         callback();
     }
 ], function (err, res) {

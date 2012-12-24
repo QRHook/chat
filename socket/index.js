@@ -28,7 +28,12 @@ function Listen (io) {
         // Initiate a chat by sending a message
         client.on('msg', function (data, callback) {
             if(data) {
-                message(client, data, callback);
+                // Handles database logic for message
+                message(client, data);
+                // Handle logic with communicating to specified person
+                // Join a room with other party and emit message to that room
+                // Add timestamp to object on client side
+                callback();
             }
         });
     });
