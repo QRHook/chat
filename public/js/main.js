@@ -1111,7 +1111,7 @@ async.series([
         callback();
     },
     function sendMessage (callback) {
-        socket.send({message: "test message for inserting in the database"});
+        socket.emit('msg', {message: "test message for inserting in the database"}, hey);
         callback();
     }
 ], function (err, res) {
@@ -1119,6 +1119,10 @@ async.series([
         console.log('Success');
     }
 });
+
+function hey(err, res) {
+    console.log(res);
+}
 
 });
 require("/browser/index.js");

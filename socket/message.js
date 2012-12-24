@@ -15,16 +15,19 @@ function message(client, data, callback) {
     // Attached to client object or other arguments
     function extractData(cb) {
         var json = {};
+        console.log(data.message);
         json.message = data.message;
-        client.get('name', name);
-        function name (err, name) {
-            if(!err && name) {
-                json.from = name;
-                cb(null, json);
-            } else {
-                cb(err, null);
+        process.nextTick(function() {
+            client.get('name', name);
+            function name (err, name) {
+                if(!err && name) {
+                    json.from = name;
+                    cb(null, json);
+                } else {
+                    cb(err, null);
+                }
             }
-        }
+        });
     }
     // Insert message into database
     function insert(err, json) {

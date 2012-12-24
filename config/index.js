@@ -1,7 +1,7 @@
 var env = process.env.NODE_ENV || 'development',
     config = exports;
 
-['couch', 'www'].forEach(function (filename) {
+['couch' ].forEach(function (filename) {
   try {
     config[filename] = require('./' + filename + '.' + env);
   } catch (_) {

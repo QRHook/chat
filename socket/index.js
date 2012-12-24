@@ -26,7 +26,7 @@ function Listen (io) {
             }
         });
         // Initiate a chat by sending a message
-        client.on('message', function (data, callback) {
+        client.on('msg', function (data, callback) {
             if(data) {
                 message(client, data, callback);
             }

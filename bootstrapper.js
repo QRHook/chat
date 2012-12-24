@@ -1,5 +1,5 @@
 // Script for bootstrapping a couchDB for this application based on the config data
-var couch = require('./lib/couch'),
+var couch = require('./couch'),
 	logger = require('./lib/logger'),
 	bootstrapper = exports;
 
