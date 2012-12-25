@@ -1,8 +1,10 @@
 // Author: Jarrett Cruger -> QR Hook
 // Require socket related things.
 // I want to attempt to do this without socket.io but TBD
+
 var initDefaults = require('./initDefaults'),
     message = require('./message'),
+    chat = require('./chat'),
     socket = require('socket.io');
 
 exports.start = Start;
@@ -28,12 +30,11 @@ function Listen (io) {
         // Initiate a chat by sending a message
         client.on('msg', function (data, callback) {
             if(data) {
-                // Handles database logic for message
+                // Handles database logic for message asynchronously
                 message(client, data);
                 // Handle logic with communicating to specified person
                 // Join a room with other party and emit message to that room
-                // Add timestamp to object on client side
-                callback();
+                chat(io, client, data, callback)
             }
         });
     });
