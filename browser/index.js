@@ -25,6 +25,14 @@ ever(setName).on('click', function (ev) {
     });
 });
 
+var sendMsg = byId('send-message');
+ever(sendMsg).on('click', function (ev) {
+    ev.stopPropagation();
+    var ele = byId('message');
+    socket.emit('msg', {message: ele.value}, function (err, res) {
+        console.log('returned');
+    });
+});
 /*async.series([
     function setName (callback) {
         socket.emit('attr:name', {name: 'Jarrett'});

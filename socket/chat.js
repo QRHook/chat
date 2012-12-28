@@ -3,5 +3,5 @@
 
 module.exports = Chat;
 function Chat (io, client, data, callback) {
-
+    callback();
 }

@@ -1511,7 +1511,7 @@ var socket = io.connect('http://localhost:3000');
 socket.on('connect', function () {
 
 });
-
+// Select button that sets name for the socket client
 var setName = byId('set-name');
 // listen on click event for setName
 ever(setName).on('click', function (ev) {
@@ -1526,6 +1526,14 @@ ever(setName).on('click', function (ev) {
     });
 });
 
+var sendMsg = byId('send-message');
+ever(sendMsg).on('click', function (ev) {
+    ev.stopPropagation();
+    var ele = byId('message');
+    socket.emit('msg', {message: ele.value}, function (err, res) {
+        console.log('returned');
+    });
+});
 /*async.series([
     function setName (callback) {
         socket.emit('attr:name', {name: 'Jarrett'});
