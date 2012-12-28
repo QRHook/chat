@@ -3,9 +3,14 @@
     <title>QR Hook Chat</title>
     <script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
     <script type='text/javascript' src='/socket.io/socket.io.js'></script>
-    <script type='text/javascript' src='js/main.js'></script>
 </head>
 <body>
-    Hi there
+    <label for="name"> Name:
+        <input id="name" type="text" />
+    </label>
+    <button id="set-name" type="button">Set Name</button>
+    <textarea id="chat-window"></textarea>
+    <button id="chat-button" type="button">Send</button>
+    <script type='text/javascript' src='js/main.js'></script>
 </body>
 

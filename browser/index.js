@@ -1,14 +1,31 @@
 // Author: Jarrett Cruger -> QR Hook
 
-var async = require('async');
+var async = require('async'),
+    byId = require('by/id'),
+    $ = require('by/queryAll'),
+    ever = require('ever');
 
 var socket = io.connect('http://localhost:3000');
 
 socket.on('connect', function () {
 
 });
+// Select button that sets name for the socket client
+var setName = byId('set-name');
+// listen on click event for setName
+ever(setName).on('click', function (ev) {
+    ev.stopPropagation();
+    var ele = byId('name');
+    socket.emit('attr:name', {name: ele.value}, function (err, res) {
+        if(!err && res) {
+            console.log(res);
+        } else {
+            console.log(err);
+        }
+    });
+});
 
-async.series([
+/*async.series([
     function setName (callback) {
         socket.emit('attr:name', {name: 'Jarrett'});
         callback();
@@ -27,4 +44,4 @@ async.series([
 
 function hey(err, res) {
     console.log(res);
-}
+}*/

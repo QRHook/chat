@@ -24,7 +24,8 @@ function Listen (io) {
         // Set name attribute of the client
         client.on('attr:name', function (data, callback) {
             if(data) {
-                client.set('name', data.name, callback);
+                client.set('name', data.name);
+                client.get('name', callback);
             }
         });
         // Initiate a chat by sending a message
