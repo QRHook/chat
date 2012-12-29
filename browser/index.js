@@ -7,9 +7,6 @@ var async = require('async'),
 
 var socket = io.connect('http://localhost:3000');
 
-socket.on('connect', function () {
-
-});
 // Select button that sets name for the socket client
 var setName = byId('set-name');
 // listen on click event for setName
