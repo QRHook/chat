@@ -30,6 +30,23 @@ ever(sendMsg).on('click', function (ev) {
         console.log('returned');
     });
 });
+
+var divs = {
+    chatBox: document.querySelector('#chat-box'),
+    chats: document.querySelector('#chats'),
+    chatList: document.querySelector('#chat-list')
+};
+
+// See how initialization works as a single page app with the loading of the UI
+
+var singlePage = require('single-page');
+var showPage = singlePage(function (href) {
+    show(divs.chatBox);
+    show(divs.chatList);
+
+    function show (e) { e.style.display = 'block'; }
+});
+
 /*async.series([
     function setName (callback) {
         socket.emit('attr:name', {name: 'Jarrett'});
