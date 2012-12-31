@@ -15,6 +15,9 @@ be faciliated by WebRTC for pure Peer to Peer chat.
 
 - Add a list of people that can be messaged (Active Chat only currently)
 - Add ability to create new chat box for a conversation to begin
+- Create an HTML div as location to add new chat windows to
+- Load General chat and chat list on hit of root URL
+- Create controller object for chat boxes.
 - Write the logic to properly place a new chat "group" together when a chat is
   initiated.
 - Insert messages correctly timestamped into database
@@ -22,7 +25,8 @@ be faciliated by WebRTC for pure Peer to Peer chat.
 - Start stripping things out into separate modules
 - Encrypt conversations (crypto-browserify).
 - Setup messages to be passed over a streamlike interface
-  [socketstream?][socketstream]
+  [socketstream?][socketstream]. Hopefully it will be my own formulation as this
+  process progresses.
 
 
 [socketstream]: https://github.com/socketstream/socketstream-0.4
