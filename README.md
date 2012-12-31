@@ -14,9 +14,13 @@ be faciliated by WebRTC for pure Peer to Peer chat.
 ## TODO:
 
 - Add a list of people that can be messaged (Active Chat only currently)
-- Add ability to create new chat box for a conversation to begin
-- Create an HTML div as location to add new chat windows to
+- Connect socket event to load names of chat list to event emitter on chat-list
+  object
 - Load General chat and chat list on hit of root URL
+- Object actions on UI trigger socket actions on backend to handle logic of
+  establishing chats (ex: adding a new chat)
+- Figure out how data is conveyed to specify the individual chats
+- Add ability to create new chat box for a conversation to begin
 - Create controller object for chat boxes.
 - Write the logic to properly place a new chat "group" together when a chat is
   initiated.
