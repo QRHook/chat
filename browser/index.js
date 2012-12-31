@@ -37,12 +37,15 @@ var divs = {
     chatList: document.querySelector('#chat-list')
 };
 
-// See how initialization works as a single page app with the loading of the UI
+var chatList = require('./chatList');
+var chatBox = require('./chatBox');
 
+// See how initialization works as a single page app with the loading of the UI
 var singlePage = require('single-page');
 var showPage = singlePage(function (href) {
     show(divs.chatBox);
     show(divs.chatList);
+
 
     function show (e) { e.style.display = 'block'; }
 });
