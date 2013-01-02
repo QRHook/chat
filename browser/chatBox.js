@@ -3,7 +3,7 @@
 
 var html = require('./html/chatBox');
 
-module.exports ChatBox;
+module.exports = ChatBox;
 
 function ChatBox (target) {
     if(!(this instanceof ChatBox)) return new ChatBox(target);
