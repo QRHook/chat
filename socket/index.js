@@ -5,7 +5,10 @@
 var initDefaults = require('./initDefaults'),
     message = require('./message'),
     chat = require('./chat'),
-    socket = require('socket.io');
+    socket = require('socket.io'),
+    uuid = require('node-uuid');
+
+var users = {};
 
 exports.start = Start;
 function Start (server, callback) {
@@ -26,6 +29,20 @@ function Listen (io) {
             if(data) {
                 client.set('name', data.name);
                 client.get('name', callback);
+            }
+        });
+        client.on('user:connect', function () {
+            // Add user to the list and create guest name for time being
+            var id = uuid();
+            var name = 'guest' + id;
+            client.get('id', set);
+            function set (err, res) {
+                if(err) {
+                    client.set('id', id);
+                    client.set('name', name);
+                    user[id] = name;
+                    client.broadcast.emit('user:connected', {name: name});
+                }
             }
         });
         // Initiate a chat by sending a message
