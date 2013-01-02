@@ -3,6 +3,6 @@ module.exports = [
         '<div class="text-view">',
         '</div>',
         '<div class="message-bar">',
-        '</div>'
+        '</div>',
     '</div>'
 ].join('\n');
