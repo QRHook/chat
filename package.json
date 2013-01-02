@@ -24,6 +24,7 @@
     "moment": "~1.7.2",
     "by": "~0.1.0",
     "ever": "0.0.1",
-    "single-page": "0.0.0"
+    "single-page": "0.0.0",
+    "hyperglue": "0.0.0"
   }
 }
