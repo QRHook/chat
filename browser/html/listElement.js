@@ -1,3 +1,3 @@
 module.exports = [
-    '<li class="user"></li>'
+    '<div class="user"></div>'
 ].join('\n');

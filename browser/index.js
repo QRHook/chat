@@ -3,39 +3,13 @@
 // Main Router to handle the client side events
 // Hands off control to UI controller objects
 
-var async = require('async'),
-    byId = require('by/id'),
-    $ = require('by/queryAll'),
-    ever = require('ever');
+var ever = require('ever');
 
 var socket = io.connect('http://localhost:3000');
 
 socket.on('connect', function () {
+    console.log('user:connect');
     socket.emit('user:connect');
-});
-
-// Select button that sets name for the socket client
-var setName = byId('set-name');
-// listen on click event for setName
-ever(setName).on('click', function (ev) {
-    ev.stopPropagation();
-    var ele = byId('name');
-    socket.emit('attr:name', {name: ele.value}, function (err, res) {
-        if(!err && res) {
-            console.log(res);
-        } else {
-            console.log(err);
-        }
-    });
-});
-
-var sendMsg = byId('send-message');
-ever(sendMsg).on('click', function (ev) {
-    ev.stopPropagation();
-    var ele = byId('message');
-    socket.emit('msg', {message: ele.value}, function (err, res) {
-        console.log('returned');
-    });
 });
 
 var divs = {

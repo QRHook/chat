@@ -17,12 +17,18 @@ function ChatList (target) {
     this.name = 'chatList';
 }
 
-ChatList.prototype = new EventEmitter;
-
 // Add event to append a new user to the chatList object
 ChatList.prototype.add = Add;
 function Add (user) {
     var self = this;
+    console.log(user.name);
+    var div = hyperglue(html, {
+        '.user': user.name
+    });
+    console.log(user);
+    console.log(div);
+    self.users.push({name: user.name, element: div});
+    self.target.appendChild(div);
 
 }
 

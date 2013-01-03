@@ -37,10 +37,12 @@ function Listen (io) {
             var name = 'guest' + id;
             client.get('id', set);
             function set (err, res) {
-                if(err) {
+                console.log(err);
+                console.log(res);
+                if(!res) {
                     client.set('id', id);
                     client.set('name', name);
-                    user[id] = name;
+                    users[id] = name;
                     client.broadcast.emit('user:connected', {name: name});
                 }
             }

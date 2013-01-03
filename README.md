@@ -31,6 +31,7 @@ be faciliated by WebRTC for pure Peer to Peer chat.
 - Setup messages to be passed over a streamlike interface
   [socketstream?][socketstream]. Hopefully it will be my own formulation as this
   process progresses.
+- Encryption streams
 
 
 [socketstream]: https://github.com/socketstream/socketstream-0.4
