@@ -799,7 +799,8 @@ function ChatList (target) {
 ChatList.prototype.add = Add;
 function Add (user) {
     var self = this;
-    console.log(user.name);
+    console.log(user.name)
+    console.log(html);
     var div = hyperglue(html, {
         '.user': user.name
     });

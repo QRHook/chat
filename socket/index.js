@@ -37,15 +37,17 @@ function Listen (io) {
             var name = 'guest' + id;
             client.get('id', set);
             function set (err, res) {
-                console.log(err);
-                console.log(res);
                 if(!res) {
                     client.set('id', id);
                     client.set('name', name);
                     users[id] = name;
+                    console.log(name);
                     client.broadcast.emit('user:connected', {name: name});
                 }
             }
+        });
+        client.on('users', function (callback) {
+            callback(users);
         });
         // Initiate a chat by sending a message
         client.on('msg', function (data, callback) {
