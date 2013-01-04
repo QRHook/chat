@@ -13,13 +13,13 @@ socket.on('connect', function () {
 });
 
 var divs = {
-    chatBox: document.querySelector('#chat-boxes'),
+    chatBox: document.querySelector('#chat-box'),
     chats: document.querySelector('#chats'),
     chatList: document.querySelector('#chat-list')
 };
 
 var chatList = require('./chatList')(divs.chatList);
-var chatBox = require('./chatBox')(divs.chats);
+var chat = require('./chat')(divs.chats);
 
 // Calls add on UI to create a new user in the list
 socket.on('user:connected', function (data) {
