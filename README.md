@@ -1,7 +1,7 @@
 QR Hook Chat Experiment
 -----------------------
 
-THis project is being utilized to allow me to engage in an appropriate
+This project is being utilized to allow me to engage in an appropriate
 development process. Thus far it has helped me understand the process of
 creating a module and how to form pieces of a project.
 
@@ -13,6 +13,7 @@ be faciliated by WebRTC for pure Peer to Peer chat.
 
 ## TODO:
 
+- Write appropriate message logic on the 'msg' event
 - Add General Chat for anyone who is connected to chat
 - Abstract out the chat methods to its own module (chat:init etc.)
 - Object actions on UI trigger socket actions on backend to handle logic of
