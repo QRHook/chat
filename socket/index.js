@@ -9,6 +9,7 @@ var initDefaults = require('./initDefaults'),
     uuid = require('node-uuid');
 
 var users = {};
+var chats = {};
 
 exports.start = Start;
 function Start (server, callback) {
@@ -61,7 +62,6 @@ function Listen (io) {
                         callback(newUsers);
                     }
                 }
-
                 if(id) {
                     keys.forEach(function (key) {
                         if(key !== id) {
@@ -85,10 +85,22 @@ function Listen (io) {
                 }
             }
         });
-        // Initiate a chat by sending a message
-        client.on('show:sockets', function () {
-            console.log(io.sockets);
+        // Abstract this out into the actual chat module
+        // Initializes any saved chats (<---TODO) and Passes object to init
+        // General Chat
+        client.on('chat:init', function (callback) {
+            createChat();
+            function createChat () {
+                // Initialize the general chat object
+                var id = uuid();
+                var name = 'General';
+                var chat = {id: id, name: name};
+                chats[id] = chat;
+                client.join(id);
+            }
         });
+
+        // Initiate a chat by sending a message
         client.on('msg', function (data, callback) {
             if(data) {
                 // Handles database logic for message asynchronously
