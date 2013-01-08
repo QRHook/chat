@@ -17,9 +17,10 @@ var chat = require('./chat')(divs.chats);
 var socket = io.connect('http://localhost:3000');
 
 socket.on('connect', function () {
-    socket.emit('user:connect');
-    socket.emit('user:load', loadUsers);
-    socket.emit('chat:init', loadChats);
+    socket.emit('user:connect', function () {
+        socket.emit('user:load', loadUsers);
+        socket.emit('chat:init', loadChats);
+    });
 });
 
 // Calls add on UI to create a new user in the list
@@ -32,12 +33,17 @@ socket.on('user:disconnected', function (data) {
     chatList.remove(data);
 });
 
-function loadUsers(users) {
+function loadUsers (users) {
     for (key in users) {
         chatList.add(users[key]);
     }
 }
 
+function loadChats (chats) {
+    for (key in chats) {
+        chat.create(socket, chats[key]);
+    }
+}
 // See how initialization works as a single page app with the loading of the UI
 var singlePage = require('single-page');
 var showPage = singlePage(function (href) {

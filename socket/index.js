@@ -6,10 +6,10 @@ var initDefaults = require('./initDefaults'),
     message = require('./message'),
     chat = require('./chat'),
     socket = require('socket.io'),
+    async = require('async'),
     uuid = require('node-uuid');
 
 var users = {};
-var chats = {};
 
 exports.start = Start;
 function Start (server, callback) {
@@ -32,7 +32,7 @@ function Listen (io) {
                 client.get('name', callback);
             }
         });
-        client.on('user:connect', function () {
+        client.on('user:connect', function (callback) {
             // Add user to the list and create guest name for time being
             client.get('id', set);
             function set (err, res) {
@@ -45,28 +45,28 @@ function Listen (io) {
                     users[id] = user;
                     console.log(name);
                     client.broadcast.emit('user:connected', user);
+                    callback();
                 }
             }
         });
         // Sends back list of users currently connected (not including self)
         client.on('user:load', function (callback) {
-            var count = 0;
+            console.log('User:Load');
             var keys = Object.keys(users);
             var newUsers = {};
             client.get('id', check);
             function check(err, id) {
-                function end () {
-                    ++count;
-                    if(count === keys.length) {
-                        console.log('users returned not including self')
-                        callback(newUsers);
-                    }
-                }
                 if(id) {
-                    keys.forEach(function (key) {
-                        if(key !== id) {
+                    console.log('User has id');
+                    async.forEach(keys, function (key, cb) {
+                        if (key !== id) {
                             newUsers[key] = users[key];
-                            end();
+                        }
+                        cb();
+                    }, function end (err) {
+                        if (!err) {
+                            console.log('users returned');
+                            callback(newUsers);
                         }
                     });
                 } else {
@@ -88,18 +88,33 @@ function Listen (io) {
         // Abstract this out into the actual chat module
         // Initializes any saved chats (<---TODO) and Passes object to init
         // General Chat
+        var general = {id: 'general', name: 'General'};
         client.on('chat:init', function (callback) {
-            createChat();
-            function createChat () {
-                // Initialize the general chat object
-                var id = uuid();
-                var name = 'General';
-                var chat = {id: id, name: name};
-                chats[id] = chat;
-                client.join(id);
+            client.get('id', get);
+            function get (err, id) {
+                if(!err && id) {
+                    joinChats(id);
+                }
+            }
+            function joinChats (id) {
+                var user = users[id];
+                if (!user.chats) {
+                    user.chats = {};
+                }
+                user.chats[general.id] = general;
+                client.join(general.id);
+                callback(user.chats);
             }
         });
-
+        function createChat () {
+            // Initialize the general chat object
+            var id = uuid();
+            var name = 'General';
+            var chat = {id: id, name: name};
+            chats[id] = chat;
+            client.join(id);
+            callback(chats);
+        }
         // Initiate a chat by sending a message
         client.on('msg', function (data, callback) {
             if(data) {
@@ -108,6 +123,7 @@ function Listen (io) {
                 // Handle logic with communicating to specified person
                 // Join a room with other party and emit message to that room
                 chat(io, client, data, callback)
+
             }
         });
     });
