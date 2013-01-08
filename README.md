@@ -1,19 +1,18 @@
 QR Hook Chat Experiment
------------------------
+=======================
 
 This project is being utilized to allow me to engage in an appropriate
 development process. Thus far it has helped me understand the process of
 creating a module and how to form pieces of a project.
 
-## Project Plan
-
+## Project Plan ##
 The plan for this project is to enable secure peer to peer chat. In the short
 term this will be done over socket.io over a server. In the long term this will
 be faciliated by WebRTC for pure Peer to Peer chat.
 
-## TODO:
-
+## TODO ##
 - Write appropriate message logic on the 'msg' event
+- Make client side store things as objects instead of arrays
 - Add General Chat for anyone who is connected to chat
 - Abstract out the chat methods to its own module (chat:init etc.)
 - Object actions on UI trigger socket actions on backend to handle logic of
@@ -28,6 +27,5 @@ be faciliated by WebRTC for pure Peer to Peer chat.
   [socketstream?][socketstream]. Hopefully it will be my own formulation as this
   process progresses.
 - Encryption streams
-
 
 [socketstream]: https://github.com/socketstream/socketstream-0.4

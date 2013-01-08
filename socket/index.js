@@ -116,14 +116,14 @@ function Listen (io) {
             callback(chats);
         }
         // Initiate a chat by sending a message
-        client.on('msg', function (data, callback) {
+        client.on('msg', function (data) {
             if(data) {
                 // Handles database logic for message asynchronously
-                //message(client, data);
+                // message(client, data);
                 // Handle logic with communicating to specified person
                 // Join a room with other party and emit message to that room
                 //chat(io, client, data, callback)
-
+                io.sockets.in(data.id).emit('chat:msged', data);
 
             }
         });
