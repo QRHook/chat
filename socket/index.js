@@ -33,23 +33,52 @@ function Listen (io) {
         });
         client.on('user:connect', function () {
             // Add user to the list and create guest name for time being
-            var id = uuid();
-            var name = 'guest' + id;
             client.get('id', set);
             function set (err, res) {
                 if(!res) {
+                    var id = uuid();
+                    var name = 'guest' + id;
                     client.set('id', id);
                     client.set('name', name);
-                    users[id] = name;
+                    var user = {name: name};
+                    users[id] = user;
                     console.log(name);
-                    client.broadcast.emit('user:connected', {name: name});
+                    client.broadcast.emit('user:connected', user);
                 }
             }
         });
-        client.on('users', function (callback) {
-            callback(users);
+        // Sends back list of users currently connected (not including self)
+        client.on('user:load', function (callback) {
+            var count = 0;
+            var keys = Object.keys(users);
+            var newUsers = {};
+            client.get('id', check);
+            function check(err, id) {
+                function end () {
+                    ++count;
+                    if(count === keys.length) {
+                        console.log('users returned not including self')
+                        callback(newUsers);
+                    }
+                }
+
+                if(id) {
+                    keys.forEach(function (key) {
+                        if(key !== id) {
+                            newUsers[key] = users[key];
+                            end();
+                        }
+                    });
+                } else {
+                    console.log('User that connected does not have ID set yet');
+                    callback(users);
+                }
+            }
         });
         // Initiate a chat by sending a message
+        client.on('show:sockets', function () {
+            console.log(io.sockets);
+        });
         client.on('msg', function (data, callback) {
             if(data) {
                 // Handles database logic for message asynchronously

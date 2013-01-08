@@ -5,13 +5,6 @@
 
 var ever = require('ever');
 
-var socket = io.connect('http://localhost:3000');
-
-socket.on('connect', function () {
-    console.log('user:connect');
-    socket.emit('user:connect');
-});
-
 var divs = {
     chatBox: document.querySelector('#chat-box'),
     chats: document.querySelector('#chats'),
@@ -20,6 +13,13 @@ var divs = {
 
 var chatList = require('./chatList')(divs.chatList);
 var chat = require('./chat')(divs.chats);
+
+var socket = io.connect('http://localhost:3000');
+
+socket.on('connect', function () {
+    socket.emit('user:connect');
+    socket.emit('user:load', loadUsers);
+});
 
 // Calls add on UI to create a new user in the list
 socket.on('user:connected', function (data) {
@@ -30,6 +30,12 @@ socket.on('user:connected', function (data) {
 socket.on('user:disconnected', function (data) {
     chatList.remove(data);
 });
+
+function loadUsers(users) {
+    for (key in users) {
+        chatList.add(users[key]);
+    }
+}
 
 // See how initialization works as a single page app with the loading of the UI
 var singlePage = require('single-page');

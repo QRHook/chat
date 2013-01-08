@@ -14,5 +14,6 @@ function Chat (target) {
 
 Chat.prototype.create = Create;
 function Create (data) {
+    var self = this;
 
 }
