@@ -1,5 +1,7 @@
 module.exports = [
     '<div class="chat">',
+        '<div class="chat-title">',
+        '</div>',
         '<div class="text-view">',
         '</div>',
         '<div class="message-bar">',

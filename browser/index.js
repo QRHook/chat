@@ -19,6 +19,7 @@ var socket = io.connect('http://localhost:3000');
 socket.on('connect', function () {
     socket.emit('user:connect');
     socket.emit('user:load', loadUsers);
+    socket.emit('chat:init', loadChats);
 });
 
 // Calls add on UI to create a new user in the list
