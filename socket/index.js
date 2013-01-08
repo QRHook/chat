@@ -119,10 +119,11 @@ function Listen (io) {
         client.on('msg', function (data, callback) {
             if(data) {
                 // Handles database logic for message asynchronously
-                message(client, data);
+                //message(client, data);
                 // Handle logic with communicating to specified person
                 // Join a room with other party and emit message to that room
-                chat(io, client, data, callback)
+                //chat(io, client, data, callback)
+
 
             }
         });

@@ -23,7 +23,7 @@ function Create (socket, chat) {
     // Add correct event for sending messages
     var button = div.querySelector('.send-message');
     console.log(button);
-    button.addEventListener('onclick', function (e){
+    button.addEventListener('click', function (e){
         e.preventDefault();
         var msg = div.querySelector('.message');
         chat['message'] = msg.value;
