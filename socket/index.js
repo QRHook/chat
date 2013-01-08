@@ -40,7 +40,7 @@ function Listen (io) {
                     var name = 'guest' + id;
                     client.set('id', id);
                     client.set('name', name);
-                    var user = {name: name};
+                    var user = {name: name, id: id};
                     users[id] = user;
                     console.log(name);
                     client.broadcast.emit('user:connected', user);
@@ -72,6 +72,16 @@ function Listen (io) {
                 } else {
                     console.log('User that connected does not have ID set yet');
                     callback(users);
+                }
+            }
+        });
+        client.on('disconnect', function () {
+            console.log('user disconnected');
+            client.get('id', kill);
+            function kill (err, id) {
+                if(!err && id) {
+                    client.broadcast.emit('user:disconnected', users[id]);
+                    delete users[id];
                 }
             }
         });

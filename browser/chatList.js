@@ -26,7 +26,7 @@ function Add (user) {
     });
     console.log(user);
     console.log(div);
-    self.users.push({name: user.name, element: div});
+    self.users.push({id: user.id, name: user.name, element: div});
     self.target.appendChild(div);
 
 }
@@ -34,5 +34,14 @@ function Add (user) {
 ChatList.prototype.remove = Remove;
 function Remove (user) {
     var self = this;
-
+    for (var i=0; i<self.users.length; i++) {
+        if(self.users[i].id === user.id) {
+            self.target.removeChild(self.users[i].element);
+            end(i);
+        }
+    }
+    function end (index) {
+        self.users.splice(index, 1);
+        console.log(self.users);
+    }
 }
