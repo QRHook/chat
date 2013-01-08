@@ -10,7 +10,7 @@ exports.run = Run;
 function Run () {
     // Plugins to setup the HTTP functionality
     app.use(flatiron.plugins.http);
-    app.use(flatiron.plugins.static, {dir: __dirname + '/public', url: '/'});
+    app.use(flatiron.plugins.static, {dir: __dirname + '/static', url: '/'});
 
     app.router.get('/', routes.root);
 
