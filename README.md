@@ -11,8 +11,6 @@ term this will be done over socket.io over a server. In the long term this will
 be faciliated by WebRTC for pure Peer to Peer chat.
 
 ## TODO ##
-- Make client side store things as objects instead of arrays
-- Add General Chat for anyone who is connected to chat
 - Abstract out the chat methods to its own module (chat:init etc.)
 - Object actions on UI trigger socket actions on backend to handle logic of
   establishing chats (ex: adding a new chat)
