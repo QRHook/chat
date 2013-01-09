@@ -5,7 +5,7 @@ module.exports = [
         '<div class="text-view">',
         '</div>',
         '<div class="message-bar">',
-            '<input class="message" type="text">',
+            '<input class="message-input" type="text">',
             '<button class="send-message" type="button">Send</button>',
         '</div>',
     '</div>'

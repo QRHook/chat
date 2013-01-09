@@ -5,13 +5,14 @@
 var hyperglue = require('hyperglue');
 
 var html = require('./html/chat');
+var messageHtml = require('./html/message');
 
 module.exports = Chat;
 
 function Chat (target) {
     if(!(this instanceof Chat)) return new Chat(target);
     this.target = target;
-    this.chats = [];
+    this.chats = {};
 }
 
 Chat.prototype.create = Create;
@@ -25,12 +26,31 @@ function Create (socket, chat) {
     console.log(button);
     button.addEventListener('click', function (e){
         e.preventDefault();
-        var msg = div.querySelector('.message');
+        var msg = div.querySelector('.message-input');
+        console.log(msg);
         chat['message'] = msg.value;
         console.log(chat);
         socket.emit('msg', chat);
         msg.value = '';
     });
-    self.chats.push({id: chat.id, name: chat.name, element: div});
+    self.chats[chat.id] = {id: chat.id, name: chat.name, element: div};
     self.target.appendChild(div);
+}
+
+Chat.prototype.destroy = Destroy;
+function Destroy (chat) {
+
+}
+
+Chat.prototype.message = Message;
+function Message (message) {
+    var self = this;
+    var div = hyperglue(messageHtml, {
+        '.message': message.name + ': ' + message.message
+    });
+    console.log(message);
+    console.log(div);
+    var chat = self.chats[message.id];
+    var textView = chat.element.querySelector('.text-view');
+    textView.appendChild(div);
 }

@@ -123,8 +123,13 @@ function Listen (io) {
                 // Handle logic with communicating to specified person
                 // Join a room with other party and emit message to that room
                 //chat(io, client, data, callback)
-                io.sockets.in(data.id).emit('chat:msged', data);
-
+                client.get('name', get);
+                function get (err, res) {
+                    if(!err && res) {
+                        data['name'] = res;
+                        io.sockets.in(data.id).emit('chat:msged', data);
+                    }
+                }
             }
         });
     });
