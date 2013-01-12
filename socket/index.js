@@ -32,6 +32,7 @@ function Listen (io) {
                 client.get('name', callback);
             }
         });
+        // Broadcasts to other clients that this new user has connected
         client.on('user:connect', function (callback) {
             // Add user to the list and create guest name for time being
             client.get('id', set);
@@ -50,6 +51,7 @@ function Listen (io) {
             }
         });
         // Sends back list of users currently connected (not including self)
+        // Used to load the user list on new client connect
         client.on('user:load', function (callback) {
             console.log('User:Load');
             var keys = Object.keys(users);
@@ -75,6 +77,8 @@ function Listen (io) {
                 }
             }
         });
+        // Send a message of the user that disconnected to be removed from the
+        // list
         client.on('disconnect', function () {
             console.log('user disconnected');
             client.get('id', kill);
@@ -106,27 +110,16 @@ function Listen (io) {
                 callback(user.chats);
             }
         });
-        function createChat () {
-            // Initialize the general chat object
-            var id = uuid();
-            var name = 'General';
-            var chat = {id: id, name: name};
-            chats[id] = chat;
-            client.join(id);
-            callback(chats);
-        }
-        // Initiate a chat by sending a message
+        // Handles message logic and relays it correct chat
         client.on('msg', function (data) {
             if(data) {
-                // Handles database logic for message asynchronously
-                // message(client, data);
-                // Handle logic with communicating to specified person
-                // Join a room with other party and emit message to that room
-                //chat(io, client, data, callback)
                 client.get('name', get);
                 function get (err, res) {
                     if(!err && res) {
-                        data['name'] = res;
+                        data['from'] = res;
+                        // Insert message into database
+                        message(data);
+                        // Send message to clients
                         io.sockets.in(data.id).emit('chat:msged', data);
                     }
                 }

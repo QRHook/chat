@@ -46,7 +46,7 @@ Chat.prototype.message = Message;
 function Message (message) {
     var self = this;
     var div = hyperglue(messageHtml, {
-        '.message': message.name + ': ' + message.message
+        '.message': message.from + ': ' + message.message
     });
     console.log(message);
     console.log(div);
