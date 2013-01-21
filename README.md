@@ -12,10 +12,10 @@ be faciliated by WebRTC for pure Peer to Peer chat.
 
 ## TODO ##
 
-- Write the logic to properly place a new chat "group" together when a chat is
-  initiated.
+- Spawn new chats between users
 - Write a couchdb view to retrieve conversations from history
 - Start stripping things out into separate modules
+- Do some kind of sane CSS to prevent eyes from bleeding
 - Encrypt conversations (crypto-browserify).
 - Setup messages to be passed over a streamlike interface
   [socketstream?][socketstream]. Hopefully it will be my own formulation as this
